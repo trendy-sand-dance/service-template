@@ -20,7 +20,7 @@ ARG LISTEN_PORT=8000
 ENV LISTEN_ADDRESS=${LISTEN_ADDRESS}
 ENV LISTEN_PORT=${LISTEN_PORT}
 
-RUN tsc 
+# RUN tsc 
 
 CMD ["npm", "run", "build"]
 # CMD ["sleep", "infinity"]
