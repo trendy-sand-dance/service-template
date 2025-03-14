@@ -8,6 +8,15 @@ const fastify = Fastify({
 const ADDRESS = process.env.LISTEN_ADDRESS;
 const PORT = process.env.LISTEN_PORT;
 
+async function routes (fastify, options) {
+	fastify.get('/', async (request, reply) => 
+		{
+			return "hoi ik ben timo";
+		});
+
+}
+
+
 // Registering routes from routes.js
 fastify.register(routes);
 
