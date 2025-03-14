@@ -7,6 +7,6 @@ services:
     ports:
       - "8000:3000"
     volumes:
-      - ./src:/app  # Mount local project folder into the container
+      - ./src:/app/src  # Mount local project folder into the container
       - /app/node_modules  # Prevent overwriting node_modules
 

@@ -3,13 +3,15 @@ FROM node:22-slim AS build-stage
 WORKDIR /app
 
 
-COPY src/package.json src/package-lock.json ./
+COPY package.json package-lock.json tsconfig.json ./
 
 RUN npm install -D 
 RUN npm install -g typescript
 
 
-COPY src/ .
+
+
+COPY src/ src/
 
 
 ARG LISTEN_ADDRESS="0.0.0.0"
@@ -20,5 +22,5 @@ ENV LISTEN_PORT=${LISTEN_PORT}
 
 RUN tsc 
 
-# CMD ["npm", "run", "build"]
+CMD ["npm", "run", "build"]
 # CMD ["sleep", "infinity"]
