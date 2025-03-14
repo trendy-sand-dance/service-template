@@ -5,8 +5,6 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "build": "npx tsc server.ts",
-    "clean": "npx tsc --clean",
     "start": "node dist/server.js"
   },
   "keywords": [],
@@ -17,6 +15,7 @@
     "tsx": "^4.19.3"
   },
   "devDependencies": {
+    "@types/node": "^22.13.10",
     "tsc": "^2.0.4",
     "typescript": "^5.8.2"
   }
