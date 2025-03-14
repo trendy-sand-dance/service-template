@@ -1,26 +1,10 @@
-
-
-
-
 import Fastify from 'fastify';
+import {routes} from './routes/routes';
 
+const ADDRESS = process.env.LISTEN_ADDRESS || '127.0.0.1';
+const PORT = process.env.LISTEN_PORT || '3000';
 
-
-const fastify = Fastify({
-	logger: true
-});
-
-const ADDRESS = process.env.LISTEN_ADDRESS;
-const PORT = process.env.LISTEN_PORT;
-
-async function routes (fastify, options) {
-	fastify.get('/', async (request, reply) => 
-		{
-			return "hoi ik ben timo";
-		});
-
-}
-
+const fastify = Fastify();
 
 // Registering routes from routes.js
 fastify.register(routes);
