@@ -1,8 +1,8 @@
 import Fastify from 'fastify';
 import {routes} from './routes/routes';
 
-const ADDRESS = process.env.LISTEN_ADDRESS || '127.0.0.1';
-const PORT = process.env.LISTEN_PORT || '3000';
+const ADDRESS = process.env.LISTEN_ADDRESS;
+const PORT = process.env.LISTEN_PORT;
 
 const fastify = Fastify();
 
