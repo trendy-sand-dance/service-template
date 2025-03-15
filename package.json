@@ -1,24 +1,33 @@
 {
-  "name": "<NAME>",
+  "name": "service-template",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "type": "module",
+  "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "tsx src/server.js",
-    "build": "tsc",
-	"dev": "tsx src/server.ts"
+    "build": "npx tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon --watch src --ext ts --exec \"tsc --noEmit && tsx src/server.ts || exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trendy-sand-dance/service-template.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "fastify": "^5.2.1",
-    "tsx": "^4.19.3"
+  "bugs": {
+    "url": "https://github.com/trendy-sand-dance/service-template/issues"
   },
+  "homepage": "https://github.com/trendy-sand-dance/service-template#readme",
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.10",
-    "tsc": "^2.0.4",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1"
   }
 }
