@@ -1,4 +1,5 @@
-FROM node:22-slim
+# Stage 1: Build-stage
+FROM node:22-slim AS build-stage
 
 WORKDIR /app
 
@@ -14,4 +15,18 @@ ARG LISTEN_PORT=8000
 ENV LISTEN_ADDRESS=${LISTEN_ADDRESS}
 ENV LISTEN_PORT=${LISTEN_PORT}
 
-CMD ["npm", "run", "dev"]
+RUN npm run build
+
+# Stage 2: FIGHT
+FROM node:22-slim 
+
+WORKDIR /app
+
+COPY --from=build-stage /app/package*.json ./
+
+RUN npm install --only=production
+
+COPY --from=build-stage /app/dist ./dist
+
+CMD ["npm", "run", "start"]
+
