@@ -1,4 +1,4 @@
-# Stage 1: Build-stage
+# Stage 1: BUILD
 FROM node:22-slim AS build-stage
 
 WORKDIR /app
@@ -17,8 +17,8 @@ ENV LISTEN_PORT=${LISTEN_PORT}
 
 RUN npm run build
 
-# Stage 2: FIGHT
-FROM node:22-slim 
+# Stage 2: FIGHT (production)
+FROM node:22-slim AS production
 
 WORKDIR /app
 
@@ -30,3 +30,8 @@ COPY --from=build-stage /app/dist ./dist
 
 CMD ["npm", "run", "start"]
 
+
+# Stage 2: EXPERIMENT (development)
+FROM build-stage AS development
+
+CMD ["npm", "run", "dev"]

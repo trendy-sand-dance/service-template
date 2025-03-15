@@ -23,11 +23,13 @@
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.10",
+    "@types/ws": "^8.18.0",
     "nodemon": "^3.1.9",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@fastify/websocket": "^11.0.2",
     "fastify": "^5.2.1"
   }
 }

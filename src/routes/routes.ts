@@ -1,10 +1,9 @@
-import { app } from '../server.js';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import websocketController from '../controllers/websocket.controller.js';
 
-export async function routes (app : FastifyInstance, options)
-{
-	app.get('/', async (request, reply) => 
-	{
-		reply.send({hello: "world"});
-	});
-}
+export async function routes(fastify: FastifyInstance) {
+  fastify.get('/ws-game', { websocket: true }, websocketController);
+  fastify.get('/', async function(request: FastifyRequest, reply: FastifyReply) {
+    reply.send({ message: 'HM from the Fastify backend', method: request.method });
+  });
+};

@@ -1,12 +1,19 @@
 all: up
 
-run: 
+up: runprod
 	docker-compose up
 
-up: build
+rundev: devbuild
+	docker-compose up
 
-build:
-	docker-compose build
+runprod: prodbuild
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+devbuild:
+	docker-compose build 
+
+prodbuild:
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
 
 clean:
 	@docker stop $$(docker ps -qa) || true
