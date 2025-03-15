@@ -15,16 +15,30 @@ T.B.A
 T.B.A
 
 
-## running in dev mode
-building the container
+## Running in dev mode
+- building the container
 ```
-docker build -t <NAME> src 
-```
-
-running the container
-```
-docker run <NAME>
+make devbuild
 ```
 
+- running the container
+```
+make rundev
+```
 
+## Running in prod mode
+- building the container
+```
+make prodbuild
+```
+
+- running the container
+```
+make runprod
+```
+
+## Cleaning the container
+```
+make clean
+```
 
