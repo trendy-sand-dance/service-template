@@ -1,18 +1,23 @@
-# service template 
+<div align=center>
 
+# service template 
 This repo contains the basic layout of our services, it runs a node server.
 
-## dev pre-requisites
-- Docker
+</div>
 
 
 ## Repo setup
 After you've created a repo based on this template you should setup the branch rules.
 T.B.A
 
-## Env setup
+## Project setup
 1. Set the name in `package.json` to the name of the service.
 T.B.A
+
+
+## dev pre-requisites
+- docker
+
 
 
 ## Running in dev mode
