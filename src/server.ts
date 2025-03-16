@@ -1,22 +1,36 @@
 import Fastify, { FastifyInstance } from 'fastify';
-import { routes } from './routes/routes.js'
-import pluginWebsocket from '@fastify/websocket';
+import { routes } from './routes/routes.js';
+import pluginCORS from '@fastify/cors';
 
 const ADDRESS: string = process.env.LISTEN_ADDRESS ? process.env.LISTEN_ADDRESS : '0.0.0.0';
 const PORT: number = process.env.LISTEN_PORT ? parseInt(process.env.LISTEN_PORT, 10) : 3000;
 
 const fastify: FastifyInstance = Fastify({
-  logger: true
+  logger: {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        translateTime: 'HH:MM:ss Z',
+        ignore: 'pid,hostname',
+        colorize: true,
+      }
+    },
+    level: 'info'
+  }
 });
 
-fastify.register(pluginWebsocket);
+fastify.register(pluginCORS), {
+  origin: true, // Specify domains for production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+};
 
 fastify.register(routes);
 
 async function startServer() {
+  await fastify.ready();
   try {
     await fastify.listen({ port: PORT, host: ADDRESS });
-    console.log(`Server listening at host: ${ADDRESS} port: ${PORT}`);
   }
   catch (err) {
     fastify.log.error(err);
