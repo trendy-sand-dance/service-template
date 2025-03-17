@@ -1,8 +1,13 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import { routes } from './routes/routes.js';
-import pluginCORS from '@fastify/cors';
 import closeWithGrace from 'close-with-grace';
 
+// Plugins
+import pluginCORS from '@fastify/cors';
+import pluginStatic from '@fastify/static';
+import { FastifyStaticOptions } from '@fastify/static';
+
+import path from 'node:path';
 
 const ADDRESS: string = process.env.LISTEN_ADDRESS ? process.env.LISTEN_ADDRESS : '0.0.0.0';
 const PORT: number = process.env.LISTEN_PORT ? parseInt(process.env.LISTEN_PORT, 10) : 3000;
@@ -20,6 +25,10 @@ const fastify: FastifyInstance = Fastify({
     level: 'info'
   }
 });
+
+fastify.register(pluginStatic, {
+  root: path.join(path.dirname(__dirname), '/public/')
+} as FastifyStaticOptions)
 
 fastify.register(pluginCORS), {
   origin: true, // Specify domains for production
