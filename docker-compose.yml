@@ -1,5 +1,5 @@
 services:
-  fastify-app:
+  frontend:
     build:
       context: .
       target: development
@@ -10,6 +10,7 @@ services:
       - "8000:3000"
     volumes:
       - ./src:/app/src  # Mount local project folder into the container
+      - ./public:/app/public
       - /app/node_modules  # Prevent overwriting node_modules
     tty: true
 
