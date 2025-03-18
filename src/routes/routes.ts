@@ -13,6 +13,11 @@ export async function routes(fastify: FastifyInstance) {
     return reply.sendFile('register.html');
   });
 
+  fastify.get('/dashboard/:username/settings', async function(request: FastifyRequest, reply: FastifyReply) {
+    const { username } = request.params as { username: string };
+    return reply.viewAsync("user-settings.ejs", { username: username });
+  });
+
   fastify.get('/dashboard/:username', async function(request: FastifyRequest, reply: FastifyReply) {
 
     const { username } = request.params as { username: string };
@@ -32,6 +37,37 @@ export async function routes(fastify: FastifyInstance) {
     return reply.viewAsync("dashboard.ejs", { username: username, email: JSON.stringify(responseData.email) });
 
   });
+
+  fastify.post('/edit/:username', async function(request: FastifyRequest, reply: FastifyReply) {
+
+    try {
+      const { username } = request.params as { username: string };
+      const { newUsername, password, newPassword, avatar } = request.body as { newUsername: string, password: string, newPassword: string, avatar: string };
+
+      console.log("request.body: ", request.body);
+      console.log("username: ", username);
+
+      const dataPackage = JSON.stringify({ username, newUsername, password, newPassword, avatar });
+
+      console.log("dataPackage: ", dataPackage);
+      const response = await fetch('http://10.11.3.10:8000/edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: dataPackage
+      });
+
+      const responseData = await response.json() as { message: string };
+      console.log(responseData);
+      return responseData;
+
+    } catch (error) {
+      request.log.error(error);
+      return reply.code(500).send({ error: 'Internal Server Error' });
+    }
+
+  })
 
   fastify.post('/login-user', async function(request: FastifyRequest, reply: FastifyReply) {
     try {

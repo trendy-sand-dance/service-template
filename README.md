@@ -6,6 +6,11 @@ This repo contains the basic layout of our services, it runs a node server.
 </div>
 
 
+## Notes to self
+
+- Don't forget to match :user when retrieving URL parameters
+
+
 ## Repo setup
 After you've created a repo based on this template you should setup the branch rules.
 T.B.A
