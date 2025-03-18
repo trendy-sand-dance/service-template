@@ -34,4 +34,4 @@ CMD ["npm", "run", "start"]
 # Stage 2: EXPERIMENT (development)
 FROM build-stage AS development
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev:full"]

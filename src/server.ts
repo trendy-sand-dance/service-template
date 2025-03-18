@@ -5,6 +5,9 @@ import closeWithGrace from 'close-with-grace';
 // Plugins
 import pluginCORS from '@fastify/cors';
 import pluginStatic from '@fastify/static';
+import pluginFormbody from '@fastify/formbody';
+import pluginView from '@fastify/view';
+
 import { FastifyStaticOptions } from '@fastify/static';
 
 // Utility
@@ -26,9 +29,7 @@ const fastify: FastifyInstance = Fastify({
   }
 });
 
-fastify.register(pluginStatic, {
-  root: path.join(path.dirname(__dirname), '/public/')
-} as FastifyStaticOptions)
+fastify.register(pluginFormbody);
 
 fastify.register(pluginCORS), {
   origin: true, // Specify domains for production
@@ -36,12 +37,25 @@ fastify.register(pluginCORS), {
   credentials: true
 };
 
+fastify.register(pluginStatic, {
+  root: path.join(path.dirname(__dirname), 'public'),
+  prefix: "/public"
+} as FastifyStaticOptions)
+
+fastify.register(pluginView, {
+  engine: {
+    ejs: require("ejs")
+  },
+  root: path.join(path.dirname(__dirname), 'views'),
+  viewExt: "ejs"
+})
+
 fastify.register(routes);
 
 async function startServer() {
   // Delay is the number of milliseconds for the graceful close to finish
   closeWithGrace(
-    { delay: 500 },
+    { delay: 1000 },
     async ({ err }) => {
       if (err != null) {
         fastify.log.error(err)
