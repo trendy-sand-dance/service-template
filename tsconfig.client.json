@@ -3,6 +3,7 @@
 	"compilerOptions": {
 	  "target": "ES6",
 	  "module": "ESNext",
+    "lib": ["DOM"],
 	  "moduleResolution": "Node",
 	  "noEmitOnError": true, // Stops compiling if it runs into errors
 	  "outDir": "./public/js",
