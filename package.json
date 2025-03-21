@@ -5,9 +5,11 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "build": "npx tsc",
+    "build:server": "npx tsc",
+    "build:client": "npx tsc --project tsconfig.client.json",
+    "build": "npm run build:server && npm run build:client",
     "start": "node dist/server.js",
-    "dev": "nodemon --watch src --ext ts --exec \"tsc --noEmit && tsx src/server.ts || exit 1\"",
+    "dev": "nodemon --delay 500ms --watch src --watch client --ext ts --exec \"tsc --project tsconfig.client.json && tsc --noEmit && tsx src/server.ts || exit 1\"",
     "tailwind": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch",
     "dev:full": "concurrently \"npm run tailwind\" \"npm run dev\""
   },
